@@ -6,6 +6,8 @@
 
 import { assertEquals } from "https://deno.land/std@0.116.0/testing/asserts.ts";
 
+import dijkstra from "https://deno.land/x/dijkstra/mod.ts";
+
 main("./input-data");
 
 type Grid = number[][];
@@ -28,6 +30,34 @@ function main(filename: string) {
   //   paths["0,0"] = grid[0][0];
   // As per rule starting position is never entered so its risk is not counted
   paths["0,0"] = 0;
+
+  const graph = {} as { [key: string]: { [key: string]: number } };
+
+  for (const index of gridIndices) {
+    console.log(`onIndex ${index}`);
+    const options = nextPositionsFromLocation(index, [rowCount, colCount]);
+    const pathsAvailable = {} as { [key: string]: number };
+    for (const option of options) {
+      pathsAvailable[String(option)] = grid[option[0]][option[1]];
+    }
+    if (Object.keys(graph).includes(String(index))) {
+      const existinData = { ...graph[String(index)] };
+      graph[String(index)] = { ...existinData, ...pathsAvailable };
+    } else {
+      graph[String(index)] = pathsAvailable;
+    }
+  }
+
+  const creationTime = Date.now() - startTime;
+  console.log(`Graph created in ${creationTime}`);
+  const path = dijkstra.find_path(graph, "0,0", "499,499");
+  console.log(`Algo ran in ${Date.now() - creationTime}`);
+  const indices = path.map((strIndex) => strIndex.split(",").map(Number));
+  const totalRisk = indices.map((index) => grid[index[0]][index[1]]);
+  console.log(
+    `Risk here is ${totalRisk.reduce((s, c) => s + c, 0) - grid[0][0]}`,
+  );
+
   while (gridIndices.length > 0) {
     const currentIndex = gridIndices.pop();
     const currentRiskLevel = paths[String(currentIndex)];
