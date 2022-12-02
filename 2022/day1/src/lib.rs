@@ -22,7 +22,7 @@ mod tests {
 
     #[test]
     fn test_day1() {
-        let file_data = read_file("/Users/shubhang/Desktop/Development/TrialAndLearning/Learning/aoc-2022/day1/actual_input.txt");
+        let file_data = read_file("../actual_input.txt");
         let mut temp: Vec<u32> = vec![];
         let mut elf: HashMap<u8, Vec<u32>> = HashMap::new();
         let mut count = 1;
