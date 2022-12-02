@@ -1,29 +1,8 @@
-use std::{collections::HashMap, env, fs};
+use std::collections::HashMap;
+use std::time;
 
-fn read_input(file_path: String) -> String {
-    fs::read_to_string(file_path).expect("unable to read input file")
-}
-
-fn part_1(inp: String) {
-    let mut points = HashMap::new();
-    points.insert("Rock", 1);
-    points.insert("Paper", 2);
-    points.insert("Scissors", 3);
-
-    points.insert("Rock-Rock", 3);
-    points.insert("Rock-Paper", 6);
-    points.insert("Paper-Paper", 3);
-    points.insert("Paper-Scissors", 6);
-    points.insert("Scissors-Scissors", 3);
-    points.insert("Scissors-Rock", 6);
-
-    let mut encoding = HashMap::new();
-    encoding.insert('A', "Rock");
-    encoding.insert('B', "Paper");
-    encoding.insert('C', "Scissors");
-    encoding.insert('X', "Rock");
-    encoding.insert('Y', "Paper");
-    encoding.insert('Z', "Scissors");
+fn part_1(encoding: &HashMap<char, &str>, points: &HashMap<&str, u32>) {
+    let inp = include_str!("../input_test.txt");
 
     let mut result: u32 = 0;
 
@@ -49,23 +28,8 @@ fn part_1(inp: String) {
     println!("{:#?}", result);
 }
 
-fn part_2(inp: String) {
-    let mut points = HashMap::new();
-    points.insert("Rock", 1);
-    points.insert("Paper", 2);
-    points.insert("Scissors", 3);
-
-    points.insert("Rock-Rock", 3);
-    points.insert("Rock-Paper", 6);
-    points.insert("Paper-Paper", 3);
-    points.insert("Paper-Scissors", 6);
-    points.insert("Scissors-Scissors", 3);
-    points.insert("Scissors-Rock", 6);
-
-    let mut encoding = HashMap::new();
-    encoding.insert('A', "Rock");
-    encoding.insert('B', "Paper");
-    encoding.insert('C', "Scissors");
+fn part_2(encoding: &HashMap<char, &str>, points: &HashMap<&str, u32>) {
+    let inp = include_str!("../input_test.txt");
 
     let mut result: u32 = 0;
 
@@ -118,10 +82,33 @@ fn user_selection(opp: &str, outcome: &char) -> String {
 }
 
 fn main() {
-    let cur_dir = env::current_dir().unwrap();
-    let file_path = format!("{}{}", cur_dir.to_str().unwrap(), "/input_test.txt");
-    let out = read_input(file_path);
+    let t0 = time::Instant::now();
+    let mut points = HashMap::new();
+    points.insert("Rock", 1);
+    points.insert("Paper", 2);
+    points.insert("Scissors", 3);
 
-    part_1(out.clone());
-    part_2(out);
+    points.insert("Rock-Rock", 3);
+    points.insert("Rock-Paper", 6);
+    points.insert("Paper-Paper", 3);
+    points.insert("Paper-Scissors", 6);
+    points.insert("Scissors-Scissors", 3);
+    points.insert("Scissors-Rock", 6);
+
+    let mut encoding = HashMap::new();
+    encoding.insert('A', "Rock");
+    encoding.insert('B', "Paper");
+    encoding.insert('C', "Scissors");
+    encoding.insert('X', "Rock");
+    encoding.insert('Y', "Paper");
+    encoding.insert('Z', "Scissors");
+    println!(
+        "time used to load hash {:?}",
+        time::Instant::now().duration_since(t0)
+    );
+    part_1(&encoding, &points);
+    println!("time used {:?}", time::Instant::now().duration_since(t0));
+    let t0 = time::Instant::now();
+    part_2(&encoding, &points);
+    println!("time used {:?}", time::Instant::now().duration_since(t0));
 }
