@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::time;
 
 fn part_1(encoding: &HashMap<char, &str>, points: &HashMap<&str, u32>) {
-    let inp = include_str!("../input_test.txt");
+    let inp = include_str!("../../inputs/day2/input_test.txt");
 
     let mut result: u32 = 0;
 
@@ -29,7 +29,7 @@ fn part_1(encoding: &HashMap<char, &str>, points: &HashMap<&str, u32>) {
 }
 
 fn part_2(encoding: &HashMap<char, &str>, points: &HashMap<&str, u32>) {
-    let inp = include_str!("../input_test.txt");
+    let inp = include_str!("../../inputs/day2/input_test.txt");
 
     let mut result: u32 = 0;
 

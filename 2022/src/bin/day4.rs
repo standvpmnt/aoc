@@ -36,7 +36,7 @@ fn part_2(inp: &str) {
 
 fn main() {
     let t0 = time::Instant::now();
-    let inp = include_str!("../input_test.txt");
+    let inp = include_str!("../../inputs/day4/input_test.txt");
     println!(
         "Took {:#?} to read input",
         time::Instant::now().duration_since(t0)

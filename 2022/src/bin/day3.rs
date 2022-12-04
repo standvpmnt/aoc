@@ -59,7 +59,7 @@ fn score_of_char(ch: char) -> u32 {
 }
 
 fn part_1() {
-    let inp = include_str!("../input_test.txt");
+    let inp = include_str!("../../inputs/day3/input_test.txt");
     let total = inp.lines().fold(0, |acc, line| {
         let dup_char = duplicate_finder(line);
         score_of_char(dup_char) + acc
@@ -68,7 +68,7 @@ fn part_1() {
 }
 
 fn part_2() {
-    let inp = include_str!("../input_test.txt");
+    let inp = include_str!("../../inputs/day3/input_test.txt");
     let data = inp.lines().collect::<Vec<_>>();
     let result = data.as_slice().chunks(3).fold(0, |acc, group_lines| {
         acc + score_of_char(same_char_finder(group_lines))
