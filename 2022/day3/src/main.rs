@@ -1,4 +1,7 @@
-use std::collections::{HashMap, HashSet};
+use std::{
+    collections::{HashMap, HashSet},
+    time,
+};
 
 fn duplicate_finder(line: &str) -> char {
     let in_line = line.chars().collect::<Vec<_>>();
@@ -66,7 +69,6 @@ fn part_1() {
 
 fn part_2() {
     let inp = include_str!("../input_test.txt");
-
     let data = inp.lines().collect::<Vec<_>>();
     let result = data.as_slice().chunks(3).fold(0, |acc, group_lines| {
         acc + score_of_char(same_char_finder(group_lines))
@@ -75,6 +77,16 @@ fn part_2() {
 }
 
 fn main() {
+    let t0 = time::Instant::now();
     part_1();
+    println!(
+        "Time to run part 1 is {:#?}",
+        time::Instant::now().duration_since(t0)
+    );
+    let t0 = time::Instant::now();
     part_2();
+    println!(
+        "Time to run part 1 is {:#?}",
+        time::Instant::now().duration_since(t0)
+    );
 }
