@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-fn part_1(inp: &str) {
+fn part_1_and_2(inp: &str) {
     let mut directories = HashSet::new();
     let mut files = HashMap::new();
 
@@ -69,5 +69,5 @@ fn part_1(inp: &str) {
 fn main() {
     let inp = include_str!("../../inputs/day7/input_test.txt");
 
-    part_1(inp);
+    part_1_and_2(inp);
 }
